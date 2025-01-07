@@ -45,10 +45,8 @@ canvas.addEventListener("mousedown", event => {
 canvas.addEventListener("mousemove", event => {
     if (selectedPiece) {
         const rect = canvas.getBoundingClientRect();
-        selectedPiece.x =
-            (event.clientX - rect.left - tileSize / 2) / tileSize;
-        selectedPiece.y =
-            (event.clientY - rect.top - tileSize / 2) / tileSize;
+        selectedPiece.x = (event.clientX - rect.left) / tileSize;
+        selectedPiece.y = (event.clientY - rect.top) / tileSize;
 
         drawBoard();
     }
@@ -56,7 +54,11 @@ canvas.addEventListener("mousemove", event => {
 
 canvas.addEventListener("mouseup", () => {
     if (selectedPiece) {
-        socket.emit("move_piece", selectedPiece);
+        socket.emit("move_piece", {
+            id: selectedPiece.id,
+            x: selectedPiece.x,
+            y: selectedPiece.y
+        });
         selectedPiece = null;
     }
 });
