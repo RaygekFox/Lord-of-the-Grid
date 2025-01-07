@@ -64,6 +64,7 @@ canvas.addEventListener("mouseup", () => {
 });
 
 socket.on("update_pieces", serverPieces => {
+    console.log("Received update_pieces with data:", serverPieces);
     pieces = serverPieces;
     drawBoard();
 });
